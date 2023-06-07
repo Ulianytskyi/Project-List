@@ -1,0 +1,5 @@
+Redmi A1 (2/32) Black, 3795, 1, 1, 0
+Redmi A1 (2/32) Light Blue, 3795, 1, 1, 1
+Redmi A1 (2/32) Light Green, 3795, 1, 1, 0
+Redmi 9A (2/32) Graphote Gray, 3995, 1, 1, 0
+Redmi 9C (2/32) Aurora Green, 4795, 1, 1, 1

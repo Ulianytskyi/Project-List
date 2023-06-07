@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Табличка товарів</title>
+  <style>
+    table {
+      border-collapse: collapse;
+      width: 100%;
+    }
+
+    th, td {
+      border: 1px solid black;
+      padding: 8px;
+      text-align: left;
+    }
+  </style>
+</head>
+<body>
+  <input type="file" id="fileInput">
+  <table id="table">
+    <thead>
+      <tr>
+        <th onclick="sortTable(0)">Назва</th>
+        <th onclick="sortTable(1)">Ціна</th>
+        <th onclick="sortTable(2)">Поле 1</th>
+        <th onclick="sortTable(3)">Поле 2</th>
+        <th onclick="sortTable(4)">Поле 3</th>
+      </tr>
+    </thead>
+    <tbody id="tableBody">
+    </tbody>
+  </table>
+
+  <script>
+    function readTextFile(file) {
+      const reader = new FileReader();
+      reader.onload = function(event) {
+        const contents = event.target.result;
+        const lines = contents.split('\n');
+        const tableBody = document.getElementById('tableBody');
+
+        for (let i = 0; i < lines.length; i++) {
+          const data = lines[i].split(',');
+
+          if (data.length === 5) {
+            const row = document.createElement('tr');
+            for (let j = 0; j < 5; j++) {
+              const cell = document.createElement('td');
+              cell.textContent = data[j].trim();
+              row.appendChild(cell);
+            }
+            tableBody.appendChild(row);
+          }
+        }
+      };
+      reader.readAsText(file);
+    }
+
+    function sortTable(column) {
+      const table = document.getElementById('table');
+      const rows = Array.from(table.getElementsByTagName('tr')).slice(1); // Skip header row
+      rows.sort((a, b) => {
+        const aValue = a.getElementsByTagName('td')[column].textContent;
+        const bValue = b.getElementsByTagName('td')[column].textContent;
+        return parseFloat(aValue) - parseFloat(bValue);
+      });
+
+      const tableBody = document.getElementById('tableBody');
+      tableBody.innerHTML = '';
+      rows.forEach(row => tableBody.appendChild(row));
+    }
+
+    const fileInput = document.getElementById('fileInput');
+    fileInput.addEventListener('change', function(event) {
+      const file = event.target.files[0];
+      readTextFile(file);
+    });
+  </script>
+</body>
+</html>

@@ -42,6 +42,7 @@
     <tbody id="tableBody">
     </tbody>
   </table>
+  <button id="saveButton">Зберегти</button>
 
   <script>
     let data = [];
@@ -136,10 +137,32 @@
       populateTable();
     }
 
+    function saveTableData() {
+      let fileContent = '';
+
+      for (let i = 0; i < data.length; i++) {
+        const itemData = data[i];
+        const line = itemData.join(',') + '\n';
+        fileContent += line;
+      }
+
+      const blob = new Blob([fileContent], { type: 'text/plain' });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = 'tableData.txt';
+      link.click();
+    }
+
     const fileInput = document.getElementById('fileInput');
     fileInput.addEventListener('change', (event) => {
       const file = event.target.files[0];
       readTextFile(file);
+    });
+
+    const saveButton = document.getElementById('saveButton');
+    saveButton.addEventListener('click', () => {
+      saveTableData();
     });
   </script>
 </body>

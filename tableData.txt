@@ -1,0 +1,7 @@
+Redmi 4A (2/16) б/в Gold,		1895,1,0,0
+Redmi A1 (2/32) Black, 			3795,	1,1,1
+Redmi A1 (2/32) Light Blue, 	3795,	1,1,1
+Redmi A1 (2/32) Light Green, 	3795,1,1,0
+Redmi 9A (2/32) Graphшte Gray, 	3995,	1,0,0
+Redmi 9C (2/32) Aurora Green, 	4795,	1,1,1
+Note 11S (6/128) Black,			8998,	1,1,0

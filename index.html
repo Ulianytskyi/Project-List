@@ -14,7 +14,16 @@
       text-align: left;
     }
 
-    .color-cell {
+    .blue-cell {
+      background-color: blue;
+      color: white;
+      font-weight: bold;
+      text-align: center;
+    }
+
+    .red-cell {
+      background-color: red;
+      color: white;
       font-weight: bold;
       text-align: center;
     }
@@ -55,10 +64,8 @@
               const cell = document.createElement('td');
               cell.textContent = itemData[j].trim();
               if (j > 1 && j < 5) {
-                const color = itemData[j].trim();
-                cell.classList.add('color-cell');
-                cell.style.backgroundColor = color;
-                cell.style.color = color; // Додано зміну кольору тексту
+                const value = itemData[j].trim();
+                cell.classList.add(value === '1' ? 'blue-cell' : 'red-cell');
               }
               row.appendChild(cell);
             }
@@ -83,10 +90,8 @@
           const cell = document.createElement('td');
           cell.textContent = itemData[j].trim();
           if (j > 1 && j < 5) {
-            const color = itemData[j].trim();
-            cell.classList.add('color-cell');
-            cell.style.backgroundColor = color;
-            cell.style.color = color; // Додано зміну кольору тексту
+            const value = itemData[j].trim();
+            cell.classList.add(value === '1' ? 'blue-cell' : 'red-cell');
           }
           row.appendChild(cell);
         }
@@ -95,10 +100,8 @@
     }
 
     function sortTableByPrice() {
-      data.sort((a, b) => {
-        const priceA = parseFloat(a[1]);
-        const priceB = parseFloat(b[1]);
-        return priceA - priceB;
+      data.sort(function(a, b) {
+        return parseFloat(a[1]) - parseFloat(b[1]);
       });
 
       populateTable();

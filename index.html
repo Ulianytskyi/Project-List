@@ -31,8 +31,6 @@
     </tbody>
   </table>
 
-  <button onclick="sortTableByPrice()">Сортувати за ціною</button>
-
   <script>
     let data = [];
 
@@ -57,6 +55,8 @@
             data.push(itemData);
           }
         }
+
+        sortTableByPrice(); // Викликати функцію сортування після заповнення таблиці
       };
       reader.readAsText(file);
     }

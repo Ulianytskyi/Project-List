@@ -13,6 +13,11 @@
       padding: 8px;
       text-align: left;
     }
+
+    .color-cell {
+      font-weight: bold;
+      text-align: center;
+    }
   </style>
 </head>
 <body>
@@ -49,6 +54,11 @@
             for (let j = 0; j < 5; j++) {
               const cell = document.createElement('td');
               cell.textContent = itemData[j].trim();
+              if (j > 1 && j < 5) {
+                const color = itemData[j].trim();
+                cell.classList.add('color-cell');
+                cell.style.backgroundColor = color;
+              }
               row.appendChild(cell);
             }
             tableBody.appendChild(row);
@@ -71,6 +81,11 @@
         for (let j = 0; j < 5; j++) {
           const cell = document.createElement('td');
           cell.textContent = itemData[j].trim();
+          if (j > 1 && j < 5) {
+            const color = itemData[j].trim();
+            cell.classList.add('color-cell');
+            cell.style.backgroundColor = color;
+          }
           row.appendChild(cell);
         }
         tableBody.appendChild(row);

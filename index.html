@@ -16,14 +16,12 @@
 
     .blue-cell {
       background-color: blue;
-      color: blue;
       font-weight: bold;
       text-align: center;
     }
 
     .red-cell {
       background-color: red;
-      color: red;
       font-weight: bold;
       text-align: center;
     }
@@ -62,10 +60,21 @@
             const row = document.createElement('tr');
             for (let j = 0; j < 5; j++) {
               const cell = document.createElement('td');
-              cell.textContent = itemData[j].trim();
-              if (j > 1 && j < 5) {
-                const value = itemData[j].trim();
-                cell.classList.add(value === '1' ? 'blue-cell' : 'red-cell');
+              const value = itemData[j].trim();
+              cell.textContent = value;
+              if (j === 1) {
+                cell.style.backgroundColor = 'transparent';
+              } else if (j > 1 && j < 5) {
+                const checkbox = document.createElement('input');
+                checkbox.type = 'checkbox';
+                checkbox.checked = value === '1';
+                checkbox.addEventListener('change', function() {
+                  const isChecked = this.checked;
+                  itemData[j] = isChecked ? '1' : '0';
+                  updateCellColor(cell, isChecked);
+                });
+                cell.appendChild(checkbox);
+                updateCellColor(cell, checkbox.checked);
               }
               row.appendChild(cell);
             }
@@ -93,17 +102,35 @@
           if (j === 1) {
             cell.style.backgroundColor = 'transparent';
           } else if (j > 1 && j < 5) {
-            cell.classList.add(value === '1' ? 'blue-cell' : 'red-cell');
+            const checkbox = document.createElement('input');
+            checkbox.type = 'checkbox';
+            checkbox.checked = value === '1';
+            checkbox.addEventListener('change', function() {
+              const isChecked = this.checked;
+              itemData[j] = isChecked ? '1' : '0';
+              updateCellColor(cell, isChecked);
+            });
+            cell.appendChild(checkbox);
+            updateCellColor(cell, checkbox.checked);
           }
           row.appendChild(cell);
         }
         tableBody.appendChild(row);
       }
+
+      sortTableByPrice();
+    }
+
+    function updateCellColor(cell, isChecked) {
+      cell.style.backgroundColor = isChecked ? 'blue' : 'red';
+      cell.style.color = isChecked ? 'blue' : 'red';
     }
 
     function sortTableByPrice() {
       data.sort(function(a, b) {
-        return parseFloat(a[1]) - parseFloat(b[1]);
+        const priceA = parseFloat(a[1]);
+        const priceB = parseFloat(b[1]);
+        return priceA - priceB;
       });
 
       populateTable();

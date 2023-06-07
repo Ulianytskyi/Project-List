@@ -58,6 +58,7 @@
                 const color = itemData[j].trim();
                 cell.classList.add('color-cell');
                 cell.style.backgroundColor = color;
+                cell.style.color = color; // Додано зміну кольору тексту
               }
               row.appendChild(cell);
             }
@@ -85,6 +86,7 @@
             const color = itemData[j].trim();
             cell.classList.add('color-cell');
             cell.style.backgroundColor = color;
+            cell.style.color = color; // Додано зміну кольору тексту
           }
           row.appendChild(cell);
         }
@@ -103,7 +105,7 @@
     }
 
     const fileInput = document.getElementById('fileInput');
-    fileInput.addEventListener('change', function(event) {
+    fileInput.addEventListener('change', (event) => {
       const file = event.target.files[0];
       readTextFile(file);
     });

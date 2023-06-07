@@ -20,18 +20,22 @@
   <table id="table">
     <thead>
       <tr>
-        <th onclick="sortTable(0)">Назва</th>
-        <th onclick="sortTable(1)">Ціна</th>
-        <th onclick="sortTable(2)">Поле 1</th>
-        <th onclick="sortTable(3)">Поле 2</th>
-        <th onclick="sortTable(4)">Поле 3</th>
+        <th>Назва</th>
+        <th>Ціна</th>
+        <th>Поле 1</th>
+        <th>Поле 2</th>
+        <th>Поле 3</th>
       </tr>
     </thead>
     <tbody id="tableBody">
     </tbody>
   </table>
 
+  <button onclick="sortTableByPrice()">Сортувати за ціною</button>
+
   <script>
+    let data = [];
+
     function readTextFile(file) {
       const reader = new FileReader();
       reader.onload = function(event) {
@@ -40,34 +44,47 @@
         const tableBody = document.getElementById('tableBody');
 
         for (let i = 0; i < lines.length; i++) {
-          const data = lines[i].split(',');
+          const itemData = lines[i].split(',');
 
-          if (data.length === 5) {
+          if (itemData.length === 5) {
             const row = document.createElement('tr');
             for (let j = 0; j < 5; j++) {
               const cell = document.createElement('td');
-              cell.textContent = data[j].trim();
+              cell.textContent = itemData[j].trim();
               row.appendChild(cell);
             }
             tableBody.appendChild(row);
+            data.push(itemData);
           }
         }
       };
       reader.readAsText(file);
     }
 
-    function sortTable(column) {
-      const table = document.getElementById('table');
-      const rows = Array.from(table.getElementsByTagName('tr')).slice(1); // Skip header row
-      rows.sort((a, b) => {
-        const aValue = a.getElementsByTagName('td')[column].textContent;
-        const bValue = b.getElementsByTagName('td')[column].textContent;
-        return parseFloat(aValue) - parseFloat(bValue);
-      });
-
+    function populateTable() {
       const tableBody = document.getElementById('tableBody');
       tableBody.innerHTML = '';
-      rows.forEach(row => tableBody.appendChild(row));
+
+      for (let i = 0; i < data.length; i++) {
+        const itemData = data[i];
+        const row = document.createElement('tr');
+        for (let j = 0; j < 5; j++) {
+          const cell = document.createElement('td');
+          cell.textContent = itemData[j].trim();
+          row.appendChild(cell);
+        }
+        tableBody.appendChild(row);
+      }
+    }
+
+    function sortTableByPrice() {
+      data.sort((a, b) => {
+        const priceA = parseFloat(a[1]);
+        const priceB = parseFloat(b[1]);
+        return priceA - priceB;
+      });
+
+      populateTable();
     }
 
     const fileInput = document.getElementById('fileInput');
